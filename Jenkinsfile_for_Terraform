@@ -3,24 +3,34 @@ pipeline {
     environment {
         TF_VAR_region = 'us-west-2' // Set Terraform variables if needed
     }
-stage('Checkout') {
-    steps {
-        git 'git@github.com:Bharaththumma/Terraform.git' // Use SSH URL
-    }
-}
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'git@github.com:Bharaththumma/Terraform.git' //
+            }
+        }
         stage('Terraform Init') {
             steps {
-                terraformInit() // Initialize Terraform
+                script {
+                    // Initialize Terraform
+                    sh 'terraform init'
+                }
             }
         }
         stage('Terraform Plan') {
             steps {
-                terraformPlan() // Create Terraform plan
+                script {
+                    // Create Terraform plan
+                    sh 'terraform plan'
+                }
             }
         }
         stage('Terraform Apply') {
             steps {
-                terraformApply() // Apply Terraform changes
+                script {
+                    // Apply Terraform changes
+                    sh 'terraform apply --auto-approve'
+                }
             }
         }
     }
