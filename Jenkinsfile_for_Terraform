@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    environment {
+        TF_VAR_region = 'us-west-2' // Set Terraform variables if needed
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/your-repo/terraform.git' // Checkout Terraform code
+            }
+        }
+        stage('Terraform Init') {
+            steps {
+                terraformInit() // Initialize Terraform
+            }
+        }
+        stage('Terraform Plan') {
+            steps {
+                terraformPlan() // Create Terraform plan
+            }
+        }
+        stage('Terraform Apply') {
+            steps {
+                terraformApply() // Apply Terraform changes
+            }
+        }
+    }
+}
