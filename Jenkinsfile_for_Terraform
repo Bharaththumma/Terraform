@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools {
+        // Specify the name of the Terraform tool configured in Global Tool Configuration
+        terraform "Terraform"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -9,14 +14,21 @@ pipeline {
         }
         stage('Terraform init') {
             steps {
-                sh 'terraform init'
+                // Use the 'terraform' tool defined above
+                script {
+                    def tfHome = tool 'Terraform'
+                    sh "${tfHome}/terraform init"
+                }
             }
         }
         stage('Terraform apply') {
             steps {
-                sh 'terraform apply --auto-approve'
+                // Use the 'terraform' tool defined above
+                script {
+                    def tfHome = tool 'Terraform'
+                    sh "${tfHome}/terraform apply --auto-approve"
+                }
             }
         }
-        
     }
 }
