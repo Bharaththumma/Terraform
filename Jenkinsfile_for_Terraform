@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: '<CREDS>', url: 'https://github.com/Bharaththumma/Jenkinsfile_for_Terraform'
+                git branch: 'main', credentialsId: '<CREDS>', url: 'https://github.com/Bharaththumma/Terraform.git'
             }
         }
         stage('Terraform init') {
